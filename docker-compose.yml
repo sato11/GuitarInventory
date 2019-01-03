@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      PGUSER: postgres
+      PGDATABASE: postgres
+      PGPASSWORD: p@ssw0rd42
+
+  web:
+    build: .
+    environment:
+      NODE_ENV: development
+    ports:
+      - '8080:8080'
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - postgres
